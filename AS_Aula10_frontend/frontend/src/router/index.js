@@ -9,6 +9,7 @@ import Delete from '../components/Delete.vue'
 import Login from '../components/login.vue'
 import Agendamentos from '../components/Agendamentos.vue'
 import CriarUsuario from '../components/CriarUsuario.vue'
+import CriarAgendamentos from '../components/CriarAgendamentos.vue'
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -25,6 +26,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/criarAgendamentos',
+      name: 'criarAgendamentos',
+      component: CriarAgendamentos
     },
     {
       path: '/criarUsuario',

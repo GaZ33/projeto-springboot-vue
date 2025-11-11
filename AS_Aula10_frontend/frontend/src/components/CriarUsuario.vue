@@ -31,11 +31,22 @@
       </div>
 
       <div class="form-group">
+        <label name="user_email">email</label>
+        <input
+          type="text"
+          class="form-control"
+          v-model="usuario.email"
+          id="user_email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
         <label name="user_tipo">Tipo de usuario</label>
         <select name="user_tipo" id="user_tipo" v-model="usuario.tipoUsuario">
-            <option value="ADMIN">ADMIN</option>
-            <option value="INSTRUTOR">INSTRUTOR</option>
-            <option value="ALUNO">ALUNO</option>
+            <option value="3">ADMIN</option>
+            <option value="2">INSTRUTOR</option>
+            <option value="1">ALUNO</option>
         </select>
 
       </div>
@@ -58,9 +69,11 @@ export default {
     addproduto: function () {
       // Validation
       // var quantidadeProduto = parseFloat(this.produto.quantidadeProduto)
-      var username = this.produto.nomeProduto.trim()
-      var password = this.produto.quantidadeProduto.trim()
-      alert(username + ' ' + password)
+      var username = this.usuario.nomeUsuario.trim()
+      var password = this.usuario.senha.trim()
+      var email = this.usuario.email.trim()
+      var tipoUsuario = this.usuario.tipoUsuario
+      var token = localStorage.getItem('token')
       // if (isNaN(quantidadeProduto)) {
       //   alert('Quantidade deve ser um número')
       //   return false
@@ -69,19 +82,20 @@ export default {
       // }
 
       this.$http
-        .post('http://localhost:8080/api/auth/login', {
+        .post('http://localhost:8080/api/usuarios/cadastro', {
           username: username,
-          password: password
+          password: password,
+          email: email,
+          tipoUsuario: tipoUsuario
         }, {
           headers: {
-            'Content-Type': 'application/json'
+            'Authorization': 'Bearer ' + token
           }
         })
         .then(
           (response) => {
             this.produto = {}
             console.log(response)
-            alert(response.body['token'])
             this.$router.push('list')
           },
           (response) => {

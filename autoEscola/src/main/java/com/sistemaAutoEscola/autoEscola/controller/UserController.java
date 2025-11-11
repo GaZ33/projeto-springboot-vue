@@ -5,6 +5,7 @@ import com.sistemaAutoEscola.autoescola.dto.request.CadastroRequest; // ⬅️ I
 import com.sistemaAutoEscola.autoescola.dto.response.UserResponse;
 import com.sistemaAutoEscola.autoescola.service.UserService;
 import java.util.stream.Collectors;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,5 +54,50 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ALUNO', 'INSTRUTOR', 'ADMIN')")
     public ResponseEntity<String> testeAcesso() {
         return ResponseEntity.ok("Acesso permitido: Esta rota está protegida.");
+    }
+    
+    @GetMapping("/usuarios")
+    @PreAuthorize("hasAnyRole('ALUNO', 'INSTRUTOR', 'ADMIN')")
+    public ResponseEntity<List<UserResponse>> listarTodosUsuarios() {
+
+        List<User> users = userService.findAllUsers();
+
+        // Mapeia List<User> para List<UserResponse> DTO
+        List<UserResponse> response = users.stream()
+                .map(this::convertToDto) // Usa o método auxiliar abaixo
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping("/instrutoress")
+    @PreAuthorize("hasAnyRole('ALUNO', 'INSTRUTOR', 'ADMIN')") // Admin ou Instrutor pode ver
+    public ResponseEntity<List<UserResponse>> listarInstrutores() {
+
+        List<User> instructors = userService.findInstructors();
+
+        // Mapeia List<User> para List<UserResponse> DTO
+        List<UserResponse> response = instructors.stream()
+                .map(this::convertToDto) // Usa o método auxiliar abaixo
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
+
+    // ------------------------------------------------------------------------
+
+    /**
+     * Método auxiliar para mapear a Entidade User para o DTO UserResponse.
+     * Centraliza a lógica de mapeamento para evitar repetição.
+     */
+    private UserResponse convertToDto(User user) {
+        return new UserResponse(
+            user.getId(),
+            user.getUsername(),
+            user.getEmail(),
+            user.getRoles().stream()
+                .map(r -> r.getAuthority())
+                .collect(Collectors.toSet())
+        );
     }
 }

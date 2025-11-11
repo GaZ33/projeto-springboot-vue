@@ -12,7 +12,7 @@
 	<groupId>com.sistemaAutoEscola</groupId>
 	<artifactId>autoEscola</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>autoEscola</name>
+	<name>autoescola</name>
 	<description>sistema de agendamento de aulas</description>
 
 	<properties>

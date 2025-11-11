@@ -9,7 +9,9 @@ public record CadastroRequest(
     String password,
     
 
-    Integer tipoUsuario
+    Integer tipoUsuario,
+        
+    String email
     
 ) {
     // Nota: Em Java 16+, records são DTOs imutáveis e já geram construtor, getters e equals.

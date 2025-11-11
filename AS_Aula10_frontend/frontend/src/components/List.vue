@@ -16,6 +16,11 @@
         Criar usuario
       </router-link>
     </p>
+    <p>
+      <router-link :to="{ name: 'criarAgendamentos' }" class="btn btn-primary">
+        Criar agendamentos
+      </router-link>
+    </p>
     <table class="table table-hover">
       <thead>
         <tr>
