@@ -5,7 +5,7 @@
 package com.sistemaAutoEscola.autoescola.service;
 
 import com.sistemaAutoEscola.autoescola.domain.Instrutor;
-import com.sistemaAutoEscola.autoescola.repository.InstrutorRepository;
+import com.sistemaAutoEscola.autoEscola.repository.InstrutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

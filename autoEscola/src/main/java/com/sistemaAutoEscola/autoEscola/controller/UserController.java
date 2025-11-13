@@ -6,6 +6,7 @@ import com.sistemaAutoEscola.autoescola.dto.response.UserResponse;
 import com.sistemaAutoEscola.autoescola.service.UserService;
 import java.util.stream.Collectors;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/usuarios") // Mapeamento principal
 public class UserController {
+    @Autowired
+    private com.sistemaAutoEscola.autoEscola.repository.InstrutorRepository instrutorRepository;
 
     @Autowired
     private UserService userService;
@@ -75,12 +78,22 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> listarInstrutores() {
 
         List<User> instructors = userService.findInstructors();
-
-        // Mapeia List<User> para List<UserResponse> DTO
         List<UserResponse> response = instructors.stream()
-                .map(this::convertToDto) // Usa o método auxiliar abaixo
-                .collect(Collectors.toList());
-
+            .map(user -> {
+                Long instrutorId = null;
+                // Buscar o Instrutor pelo User
+                Optional<com.sistemaAutoEscola.autoescola.domain.Instrutor> instrutorOpt = instrutorRepository.findByUser(user);
+                if (instrutorOpt.isPresent()) {
+                    instrutorId = instrutorOpt.get().getId();
+                }
+                return new UserResponse(
+                    instrutorId, // id do instrutor
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getRoles().stream().map(r -> r.getAuthority()).collect(Collectors.toSet())
+                );
+            })
+            .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 

@@ -1,4 +1,4 @@
-package com.sistemaAutoEscola.autoescola.controller;
+package com.sistemaAutoEscola.autoEscola.controller;
 
 import com.sistemaAutoEscola.autoescola.domain.AgendamentoAula;
 import com.sistemaAutoEscola.autoescola.domain.Avaliacao;
@@ -126,8 +126,10 @@ public class AgendamentoAulaController {
             return ResponseEntity.ok(responseDto);
 
         } catch (RuntimeException ex) {
-            // Captura erros como IDs não encontrados, horário indisponível, etc.
-            return ResponseEntity.badRequest().body(null); 
+            // Log detalhado do erro para rastreamento
+            ex.printStackTrace();
+            System.err.println("Erro ao criar agendamento: " + ex.getMessage());
+            return ResponseEntity.status(400).body(null);
         }
     }
     

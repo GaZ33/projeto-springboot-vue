@@ -65,6 +65,58 @@ public class Aluno implements Serializable {
         return user;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCpfAluno(String cpfAluno) {
+        this.cpfAluno = cpfAluno;
+    }
+
+    public void setNascimentoAluno(LocalDate nascimentoAluno) {
+        this.nascimentoAluno = nascimentoAluno;
+    }
+
+    public void setDataRegistroAluno(LocalDate dataRegistroAluno) {
+        this.dataRegistroAluno = dataRegistroAluno;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public void setPnomeAluno(String pnomeAluno) {
+        this.pnomeAluno = pnomeAluno;
+    }
+
+    public void setSnomeAluno(String snomeAluno) {
+        this.snomeAluno = snomeAluno;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setCnh(Cnh cnh) {
+        this.cnh = cnh;
+    }
+
+    public void setExames(List<Exame> exames) {
+        this.exames = exames;
+    }
+
+    public void setAgendamentos(List<AgendamentoAula> agendamentos) {
+        this.agendamentos = agendamentos;
+    }
+
     public Cnh getCnh() {
         return cnh;
     }

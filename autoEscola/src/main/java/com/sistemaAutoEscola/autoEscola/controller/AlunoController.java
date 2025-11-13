@@ -8,9 +8,15 @@ import com.sistemaAutoEscola.autoEscola.dto.request.AlunoRequest;
 import com.sistemaAutoEscola.autoescola.domain.Aluno;
 import com.sistemaAutoEscola.autoescola.domain.Cnh;
 import com.sistemaAutoEscola.autoescola.domain.Exame;
+import com.sistemaAutoEscola.autoescola.domain.User;
+import com.sistemaAutoEscola.autoescola.repository.UserRepository;
 import com.sistemaAutoEscola.autoescola.service.CnhServiceImpl;
 import com.sistemaAutoEscola.autoescola.service.ExameServiceImpl;
+import com.sistemaAutoEscola.autoescola.service.AlunoService;
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,8 +31,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api/aluno")
 public class AlunoController {
+    @GetMapping("/listar")
+    public ResponseEntity<List<Map<String, Object>>> listarAlunos() {
+        List<Aluno> alunos = alunoService.getAllAlunos();
+            List<Map<String, Object>> result = new ArrayList<>();
+            for (Aluno a : alunos) {
+                Map<String, Object> m = new HashMap<>();
+                m.put("id", Long.valueOf(a.getId()));
+                m.put("nome", a.getPnomeAluno() + " " + a.getSnomeAluno());
+                result.add(m);
+            }
+        return ResponseEntity.ok(result);
+    }
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private AlunoService alunoService;
+    @Autowired
+    private UserRepository userRepository;
     
     @Autowired
     private ExameServiceImpl exameService;
@@ -55,21 +75,26 @@ public class AlunoController {
     
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrarAluno(@RequestBody AlunoRequest request) {
-        Aluno aluno = new Aluno();
-        // Preencha os campos do aluno com os dados do request
-        aluno.setCpfAluno(request.getCpf());
-        aluno.setPnomeAluno(request.getPrimeiroNome());
-        aluno.setSnomeAluno(request.getSobrenome());
-        aluno.setCelular(request.getCelular());
-        aluno.setNascimentoAluno(LocalDate.parse(request.getDataNascimento())); // ajuste tipo se necessário
-        aluno.setBairro(request.getBairro());
-        aluno.setRua(request.getRua());
-        // Relacione o usuário (busque pelo id)
-        Usuario usuario = usuarioRepository.findById(request.getUsuarioId()).orElseThrow();
-        aluno.setUsuario(usuario);
+        try {
+            Aluno aluno = new Aluno();
+            aluno.setCpfAluno(request.getCpf());
+            aluno.setPnomeAluno(request.getPrimeiroNome());
+            aluno.setSnomeAluno(request.getSobrenome());
+            aluno.setCelular(request.getCelular());
+            aluno.setNascimentoAluno(LocalDate.parse(request.getDataNascimento()));
+            aluno.setBairro(request.getBairro());
+            aluno.setRua(request.getRua());
+            aluno.setDataRegistroAluno(LocalDate.now());
+            // Relacione o usuário (busque pelo id)
+            User usuario = userRepository.findById(request.getUsuarioId()).orElseThrow();
+            aluno.setUser(usuario);
 
-        alunoService.saveAluno(aluno);
-        return ResponseEntity.ok().build();
-
+            alunoService.saveAluno(aluno);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
     }
 }
+

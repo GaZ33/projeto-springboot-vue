@@ -1,4 +1,4 @@
-package com.sistemaAutoEscola.autoescola.repository;
+package com.sistemaAutoEscola.autoEscola.repository;
 
 import com.sistemaAutoEscola.autoescola.domain.Instrutor;
 import com.sistemaAutoEscola.autoescola.domain.User;

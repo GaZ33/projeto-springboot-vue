@@ -5,7 +5,7 @@ import com.sistemaAutoEscola.autoescola.dto.request.AgendamentoRequest;
 import com.sistemaAutoEscola.autoescola.repository.AgendamentoAulaRepository;
 import com.sistemaAutoEscola.autoescola.repository.AlunoRepository;
 import com.sistemaAutoEscola.autoescola.repository.AvaliacaoRepository;
-import com.sistemaAutoEscola.autoescola.repository.InstrutorRepository;
+import com.sistemaAutoEscola.autoEscola.repository.InstrutorRepository;
 import com.sistemaAutoEscola.autoescola.repository.UserRepository;
 import enums.SituacaoAgendamento;
 import jakarta.persistence.EntityNotFoundException;
@@ -196,11 +196,9 @@ public class AgendamentoAulaServiceImpl implements AgendamentoAulaService {
     
     @Transactional
     public AgendamentoAula criarNovoAgendamento(AgendamentoRequest request) {
-        User userAluno = userRepository.findById(request.alunoId())
-            .orElseThrow(() -> new RuntimeException("Usuário Aluno com ID " + request.alunoId() + " não encontrado."));
-        // 1. Carregar Entidades Relacionadas (Aluno e Instrutor)
-        Aluno aluno = alunoRepository.findByUser(userAluno)
-                .orElseThrow(() -> new RuntimeException("Aluno com ID " + request.alunoId() + " não encontrado."));
+    // 1. Carregar Entidades Relacionadas (Aluno e Instrutor)
+    Aluno aluno = alunoRepository.findById(request.alunoId())
+        .orElseThrow(() -> new RuntimeException("Aluno com ID " + request.alunoId() + " não encontrado."));
                 
         Instrutor instrutor = instrutorRepository.findById(request.instrutorId())
                 .orElseThrow(() -> new RuntimeException("Instrutor com ID " + request.instrutorId() + " não encontrado."));

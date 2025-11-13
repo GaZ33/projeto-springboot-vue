@@ -13,7 +13,7 @@
         <input type="text" class="form-control" v-model="alunoSearch" placeholder="Buscar aluno..." />
         <select class="form-control" v-model="usuario.alunoId" id="aluno-select" required>
           <option v-for="aluno in filteredAlunos" :key="aluno.id" :value="aluno.id">
-            {{ aluno.username }}
+            {{ aluno.nome }}
           </option>
         </select>
       </div>
@@ -83,7 +83,7 @@ export default {
       })
     },
     fetchAlunos: function () {
-      this.$http.get('http://localhost:8080/api/usuarios/usuarios', {
+      this.$http.get('http://localhost:8080/api/aluno/listar', {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
@@ -104,14 +104,17 @@ export default {
   },
   computed: {
     filteredAlunos () {
-      if (!this.alunoSearch) return this.alunos
-      return this.alunos.filter(a => a.username.toLowerCase().includes(this.alunoSearch.toLowerCase()))
+      if (!this.alunoSearch) {
+        return this.alunos
+      }
+      return this.alunos.filter(a => a.nome && a.nome.toLowerCase().includes(this.alunoSearch.toLowerCase()))
     },
     filteredInstrutores () {
       if (!this.instrutorSearch) return this.instrutores
       return this.instrutores.filter(i => i.username.toLowerCase().includes(this.instrutorSearch.toLowerCase()))
     }
   },
+  // Adiciona vírgula para separar computed de mounted
   mounted () {
     this.fetchAlunos()
     this.fetchInstrutores()
