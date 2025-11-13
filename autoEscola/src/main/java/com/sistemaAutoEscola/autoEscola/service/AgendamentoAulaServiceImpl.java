@@ -1,6 +1,7 @@
 package com.sistemaAutoEscola.autoescola.service;
 
 import com.sistemaAutoEscola.autoescola.domain.*;
+import com.sistemaAutoEscola.autoescola.dto.request.AgendamentoRequest;
 import com.sistemaAutoEscola.autoescola.repository.AgendamentoAulaRepository;
 import com.sistemaAutoEscola.autoescola.repository.AlunoRepository;
 import com.sistemaAutoEscola.autoescola.repository.AvaliacaoRepository;
@@ -17,7 +18,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class AgendamentoAulaServiceImpl implements AgendamentoAulaService {
@@ -46,6 +49,7 @@ public class AgendamentoAulaServiceImpl implements AgendamentoAulaService {
         this.instrutorRepository = instrutorRepository;
         this.userRepository = userRepository;
         this.avaliacaoRepository = avaliacaoRepository;
+        
     }
 
  
@@ -188,5 +192,30 @@ public class AgendamentoAulaServiceImpl implements AgendamentoAulaService {
                 .orElseThrow(() -> new EntityNotFoundException("Usuário '" + username + "' não encontrado."));
         return instrutorRepository.findByUser(user)
                 .orElseThrow(() -> new EntityNotFoundException("Nenhum instrutor associado ao usuário '" + username + "'."));
+    }
+    
+    @Transactional
+    public AgendamentoAula criarNovoAgendamento(AgendamentoRequest request) {
+        User userAluno = userRepository.findById(request.alunoId())
+            .orElseThrow(() -> new RuntimeException("Usuário Aluno com ID " + request.alunoId() + " não encontrado."));
+        // 1. Carregar Entidades Relacionadas (Aluno e Instrutor)
+        Aluno aluno = alunoRepository.findByUser(userAluno)
+                .orElseThrow(() -> new RuntimeException("Aluno com ID " + request.alunoId() + " não encontrado."));
+                
+        Instrutor instrutor = instrutorRepository.findById(request.instrutorId())
+                .orElseThrow(() -> new RuntimeException("Instrutor com ID " + request.instrutorId() + " não encontrado."));
+
+        // 2. Criar a Entidade Agendamento
+        AgendamentoAula novoAgendamento = new AgendamentoAula();
+        
+        novoAgendamento.setDataAgendamento(request.datetime());
+        novoAgendamento.setAluno(aluno);
+        novoAgendamento.setInstrutor(instrutor);
+        
+        // Novo agendamento deve começar como AGENDADO
+        novoAgendamento.setSituacaoAgendamento(SituacaoAgendamento.AGENDADO); 
+
+        // 3. Salvar e retornar
+        return agendamentoRepository.save(novoAgendamento);
     }
 }

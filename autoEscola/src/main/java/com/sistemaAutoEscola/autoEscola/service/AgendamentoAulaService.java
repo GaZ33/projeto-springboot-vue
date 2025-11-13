@@ -1,36 +1,48 @@
 package com.sistemaAutoEscola.autoescola.service;
 
 import com.sistemaAutoEscola.autoescola.domain.AgendamentoAula;
-import com.sistemaAutoEscola.autoescola.domain.Avaliacao; // <--- ADICIONADO
+import com.sistemaAutoEscola.autoescola.domain.Avaliacao;
+import com.sistemaAutoEscola.autoescola.dto.request.AgendamentoRequest; // Adicionado para a rota de cadastro
+import enums.SituacaoAgendamento;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import com.sistemaAutoEscola.autoescola.domain.AgendamentoAula;
-
-
 
 public interface AgendamentoAulaService {
 
-    /**
-     * Busca os agendamentos do aluno atualmente autenticado.
-     * @return Uma lista de AgendamentoAula.
-     */
+    // ----------------------------------------------------------------------
+    // MÉTODOS DE BUSCA E VISUALIZAÇÃO
+    // ----------------------------------------------------------------------
+
+    /** Busca os agendamentos do aluno atualmente autenticado. */
     List<AgendamentoAula> findAgendamentosByAlunoLogado();
-    /**
-     * Busca os agendamentos do instrutor atualmente autenticado.
-     * @return Uma lista de AgendamentoAula.
-     */
+    
+    /** Busca os agendamentos do instrutor atualmente autenticado. */
     List<AgendamentoAula> findAgendamentosByInstrutorLogado();
 
-    /**
-     * Conclui um agendamento de aula e associa uma avaliação a ele.
-     * Apenas o instrutor responsável pela aula pode concluí-la.
-     *
-     * @param agendamentoId O ID do agendamento a ser concluído.
-     * @param avaliacao A entidade Avaliacao (que será salva e associada).
-     * @return O AgendamentoAula atualizado com o status CONCLUIDO e a avaliação.
-     */
-    AgendamentoAula concluirAgendamento(Long agendamentoId, Avaliacao avaliacao);
-    // ==================================================================
-    
- 
-}
+    /** Busca agendamentos entre duas datas/horas. */
+    List<AgendamentoAula> buscarPorIntervalo(LocalDateTime inicio, LocalDateTime fim);
 
+    /** Busca agendamentos em um único dia. (Sobrecarga) */
+    List<AgendamentoAula> buscarPorIntervalo(LocalDate data);
+    
+    /** Busca agendamentos pelo CPF do aluno (apenas para instrutores/admins). */
+    List<AgendamentoAula> buscarAgendamentosPorAlunoPorCpf(String cpf);
+    
+    /** Busca agendamentos pelo nome e sobrenome do aluno (apenas para instrutores/admins). */
+    List<AgendamentoAula> buscarAgendamentosPorAlunoPorNomes(String pnome, String snome);
+
+
+    // ----------------------------------------------------------------------
+    // MÉTODOS DE AÇÃO / TRANSAÇÃO
+    // ----------------------------------------------------------------------
+    
+    /** 🚨 CRIA UM NOVO AGENDAMENTO A PARTIR DO DTO. */
+    AgendamentoAula criarNovoAgendamento(AgendamentoRequest request);
+
+    /** Conclui um agendamento e associa uma avaliação. */
+    AgendamentoAula concluirAgendamento(Long agendamentoId, Avaliacao avaliacao);
+
+    /** Altera o status de um agendamento (ex: CONCLUIDO, CANCELADO). */
+    AgendamentoAula alterarStatus(long id, SituacaoAgendamento statusAgendamento);
+}

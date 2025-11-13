@@ -25,6 +25,58 @@ public class Aluno implements Serializable {
     @Column(name = "id_aluno")
     private Long id;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getCpfAluno() {
+        return cpfAluno;
+    }
+
+    public LocalDate getNascimentoAluno() {
+        return nascimentoAluno;
+    }
+
+    public LocalDate getDataRegistroAluno() {
+        return dataRegistroAluno;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public String getPnomeAluno() {
+        return pnomeAluno;
+    }
+
+    public String getSnomeAluno() {
+        return snomeAluno;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Cnh getCnh() {
+        return cnh;
+    }
+
+    public List<Exame> getExames() {
+        return exames;
+    }
+
+    public List<AgendamentoAula> getAgendamentos() {
+        return agendamentos;
+    }
+
     @Column(name = "cpf_aluno", nullable = false, unique = true, length = 11)
     private String cpfAluno;
 

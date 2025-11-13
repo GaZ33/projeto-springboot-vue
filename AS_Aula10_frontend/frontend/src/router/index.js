@@ -10,6 +10,7 @@ import Login from '../components/login.vue'
 import Agendamentos from '../components/Agendamentos.vue'
 import CriarUsuario from '../components/CriarUsuario.vue'
 import CriarAgendamentos from '../components/CriarAgendamentos.vue'
+import CriarAlunos from '../components/CriarAlunos.vue'
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -26,6 +27,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/criarAlunos',
+      name: 'criarAlunos',
+      component: CriarAlunos
     },
     {
       path: '/criarAgendamentos',

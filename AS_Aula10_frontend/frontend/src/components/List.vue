@@ -21,6 +21,11 @@
         Criar agendamentos
       </router-link>
     </p>
+    <p>
+      <router-link :to="{ name: 'criarAlunos' }" class="btn btn-primary">
+        Criar alunos
+      </router-link>
+    </p>
     <table class="table table-hover">
       <thead>
         <tr>
