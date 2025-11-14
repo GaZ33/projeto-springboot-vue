@@ -38,6 +38,12 @@
           </router-link>
         </div>
         <div class="col d-flex justify-content-center">
+          <router-link :to="{ name: 'AgendamentosIntervalo' }" class="btn btn-outline-dark w-100 d-flex flex-column align-items-center py-3">
+            <i class="bi bi-calendar-range" style="font-size: 2rem;"></i>
+            <span class="mt-2">Agendamentos por Intervalo</span>
+          </router-link>
+        </div>
+        <div class="col d-flex justify-content-center">
           <router-link :to="{ name: 'login' }" class="btn btn-outline-secondary w-100 d-flex flex-column align-items-center py-3">
             <i class="bi bi-box-arrow-in-right" style="font-size: 2rem;"></i>
             <span class="mt-2">Login</span>
