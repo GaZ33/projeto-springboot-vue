@@ -56,7 +56,6 @@ export default {
     const now = Date.now()
     if (!lastLogin || (now - parseInt(lastLogin, 10)) > 3600000) {
       this.$router.push({ name: 'login' })
-      return
     }
   },
   methods: {

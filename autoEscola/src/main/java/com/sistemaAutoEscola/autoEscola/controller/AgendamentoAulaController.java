@@ -49,12 +49,15 @@ public class AgendamentoAulaController {
     /** Buscar agendamentos entre duas datas */
     @GetMapping("/intervalo")
     @PreAuthorize("hasAnyRole('INSTRUTOR')")
-    public ResponseEntity<List<AgendamentoAula>> buscarPorIntervalo(
+    public ResponseEntity<List<com.sistemaAutoEscola.autoescola.dto.response.AgendamentoIntervaloResponse>> buscarPorIntervalo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fim) {
 
         List<AgendamentoAula> agendamentos = agendamentoService.buscarPorIntervalo(inicio, fim);
-        return ResponseEntity.ok(agendamentos);
+        List<com.sistemaAutoEscola.autoescola.dto.response.AgendamentoIntervaloResponse> resposta = agendamentos.stream()
+            .map(com.sistemaAutoEscola.autoescola.dto.response.AgendamentoIntervaloResponse::new)
+            .toList();
+        return ResponseEntity.ok(resposta);
     }
 
     /** Buscar agendamentos de um único dia */

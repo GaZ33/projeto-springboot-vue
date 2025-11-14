@@ -12,6 +12,7 @@ import CriarUsuario from '../components/CriarUsuario.vue'
 import CriarAgendamentos from '../components/CriarAgendamentos.vue'
 import CriarAlunos from '../components/CriarAlunos.vue'
 import AgendamentosAlunos from '../components/AgendamentosAlunos.vue'
+import AgendamentosIntervalo from '../components/AgendamentosIntervalo.vue'
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -28,6 +29,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/AgendamentosIntervalo',
+      name: 'AgendamentosIntervalo',
+      component: AgendamentosIntervalo
     },
     {
       path: '/criarAlunos',
