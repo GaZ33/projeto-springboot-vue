@@ -58,6 +58,12 @@ export default {
   },
 
   created: function () {
+    const lastLogin = localStorage.getItem('lastLogin')
+    const now = Date.now()
+    if (!lastLogin || (now - parseInt(lastLogin, 10)) > 3600000) {
+      this.$router.push({ name: 'login' })
+      return
+    }
     this.fetchprodutoData()
   },
 

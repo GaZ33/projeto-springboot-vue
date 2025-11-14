@@ -58,6 +58,14 @@ export default {
   },
 
   created: function () {
+    // Verificação de login e tempo
+    const lastLogin = localStorage.getItem('lastLogin')
+    const now = Date.now()
+    if (!lastLogin || (now - parseInt(lastLogin, 10)) > 3600000) {
+      // Não logou ou passou de 1 minuto
+      this.$router.push({ name: 'login' })
+      return
+    }
     this.fetchprodutoData()
   },
 

@@ -58,6 +58,7 @@ export default {
             console.log(response)
             alert(response.body['token'])
             localStorage.setItem('token', response.body['token'])
+            localStorage.setItem('lastLogin', Date.now().toString())
             this.$router.push('list')
           },
           (response) => {
