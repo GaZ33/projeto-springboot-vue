@@ -2,14 +2,14 @@
   <div class="min-vh-100" style="background: #baf6fc; margin: 0; padding: 0;">
     <nav class="navbar navbar-light px-4 w-100 m-0" style="background: #8ee3ef; position: absolute; top: 0; left: 0; right: 0;">
       <span class="navbar-brand mb-0 h1">
-        <i class="bi bi-car-front-fill" style="font-size: 2rem;"></i>
+        <i class="bi bi-car-front-fill" style="font-size: 2rem; color: #111;"></i>
       </span>
       <div class="d-flex align-items-center gap-3">
-        <a href=""><i class="bi bi-whatsapp"  style="font-size: 1.5rem;"></i></a>
-        <a href=""><i class="bi bi-instagram" style="font-size: 1.5rem;"></i></a>
-        <a href=""><i class="bi bi-geo-alt" style="font-size: 1.5rem;"></i></a>
-        <a href=""><i class="bi bi-telephone" style="font-size: 1.5rem;"></i></a>
-        <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
+        <a href=""><i class="bi bi-whatsapp"  style="font-size: 1.5rem; color: #111;"></i></a>
+        <a href=""><i class="bi bi-instagram" style="font-size: 1.5rem; color: #111;"></i></a>
+        <a href=""><i class="bi bi-geo-alt" style="font-size: 1.5rem; color: #111;"></i></a>
+        <a href=""><i class="bi bi-telephone" style="font-size: 1.5rem; color: #111;"></i></a>
+        <i class="bi bi-person-circle" style="font-size: 2rem; color: #111;"></i>
       </div>
     </nav>
     <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
