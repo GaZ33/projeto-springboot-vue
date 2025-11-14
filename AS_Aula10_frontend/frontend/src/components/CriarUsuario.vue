@@ -1,60 +1,46 @@
 <template>
-  <div id="create-produto">
-    <h1>Criar usuario</h1>
-
-    <p>
-      <router-link :to="{ name: 'list' }"
-        >Voltar para a lista</router-link
-      >
-    </p>
-    <form v-on:submit.prevent="addproduto">
-      <div class="form-group">
-        <label name="user_username">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="usuario.nomeUsuario"
-          id="user_username"
-          required
-        />
+  <div class="min-vh-100" style="background: #baf6fc; margin: 0; padding: 0;">
+    <nav class="navbar navbar-light px-4 w-100 m-0" style="background: #8ee3ef; position: absolute; top: 0; left: 0; right: 0;">
+      <span class="navbar-brand mb-0 h1">
+        <i class="bi bi-car-front-fill" style="font-size: 2rem;"></i>
+      </span>
+      <div class="d-flex align-items-center gap-3">
+        <i class="bi bi-whatsapp" style="font-size: 1.5rem;"></i>
+        <i class="bi bi-instagram" style="font-size: 1.5rem;"></i>
+        <i class="bi bi-geo-alt" style="font-size: 1.5rem;"></i>
+        <i class="bi bi-telephone" style="font-size: 1.5rem;"></i>
+        <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
       </div>
-
-      <div class="form-group">
-        <label name="user_password">Senha</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="usuario.senha"
-          id="user_password"
-          required
-        />
+    </nav>
+    <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+      <div class="bg-white p-5 rounded shadow" style="min-width: 350px;">
+        <h4 class="mb-4 text-center">Criar usuário</h4>
+        <form v-on:submit.prevent="addproduto">
+          <div class="mb-3">
+            <input type="text" class="form-control" v-model="usuario.nomeUsuario" placeholder="Username" required />
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control" v-model="usuario.senha" placeholder="Senha" required />
+          </div>
+          <div class="mb-3">
+            <input type="email" class="form-control" v-model="usuario.email" placeholder="Email" required />
+          </div>
+          <div class="mb-3">
+            <select class="form-control" v-model="usuario.tipoUsuario" required>
+              <option value="3">ADMIN</option>
+              <option value="2">INSTRUTOR</option>
+              <option value="1">ALUNO</option>
+            </select>
+          </div>
+          <button class="btn btn-primary w-100 mb-2" type="submit">Create</button>
+          <div class="text-center">
+            <small>
+              <router-link :to="{ name: 'list' }">Voltar para a lista</router-link>
+            </small>
+          </div>
+        </form>
       </div>
-
-      <div class="form-group">
-        <label name="user_email">email</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="usuario.email"
-          id="user_email"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label name="user_tipo">Tipo de usuario</label>
-        <select name="user_tipo" id="user_tipo" v-model="usuario.tipoUsuario">
-            <option value="3">ADMIN</option>
-            <option value="2">INSTRUTOR</option>
-            <option value="1">ALUNO</option>
-        </select>
-
-      </div>
-
-      <div class="form-group">
-        <button class="btn btn-primary">Create</button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 

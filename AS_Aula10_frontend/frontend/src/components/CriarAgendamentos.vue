@@ -1,48 +1,60 @@
 <template>
-  <div id="create-produto">
-    <h1>Criar Agendamentos</h1>
-
-    <p>
-      <router-link :to="{ name: 'list' }"
-        >Voltar para a lista</router-link
-      >
-    </p>
-    <form v-on:submit.prevent="addproduto">
-      <div class="form-group">
-        <label for="aluno-select">Selecione um Aluno</label>
-        <input type="text" class="form-control" v-model="alunoSearch" placeholder="Buscar aluno..." />
-        <select class="form-control" v-model="usuario.alunoId" id="aluno-select" required>
-          <option v-for="aluno in filteredAlunos" :key="aluno.id" :value="aluno.id">
-            {{ aluno.nome }}
-          </option>
-        </select>
+  <div class="min-vh-100" style="background: #baf6fc; margin: 0; padding: 0;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style="position: absolute; top: 0; left: 0; width: 100%; z-index: 10;">
+      <div class="container-fluid">
+        <router-link class="navbar-brand d-flex align-items-center" :to="{ name: 'agendamentos' }">
+          <i class="bi bi-calendar-check" style="font-size: 2rem; color: #0d6efd;"></i>
+          <span class="ms-2 fw-bold">Agendamentos</span>
+        </router-link>
+        <div class="d-flex ms-auto align-items-center" style="gap: 1rem;">
+          <router-link class="nav-link p-0" :to="{ name: 'list' }">
+            <i class="bi bi-list-ul" style="font-size: 1.5rem;"></i>
+          </router-link>
+          <router-link class="nav-link p-0" :to="{ name: 'login' }">
+            <i class="bi bi-box-arrow-right" style="font-size: 1.5rem;"></i>
+          </router-link>
+        </div>
       </div>
-
-      <div class="form-group">
-        <label for="instrutor-select">Selecione um Instrutor</label>
-        <input type="text" class="form-control" v-model="instrutorSearch" placeholder="Buscar instrutor..." />
-        <select class="form-control" v-model="usuario.instrutorId" id="instrutor-select" required>
-          <option v-for="instrutor in filteredInstrutores" :key="instrutor.id" :value="instrutor.id">
-            {{ instrutor.username }}
-          </option>
-        </select>
+    </nav>
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="card shadow-lg p-4" style="width: 100%; max-width: 500px; margin-top: 80px;">
+        <h2 class="mb-4 text-center">Criar Agendamento</h2>
+        <form v-on:submit.prevent="addproduto">
+          <div class="mb-3">
+            <label for="aluno-select" class="form-label">Selecione um Aluno</label>
+            <input type="text" class="form-control mb-2" v-model="alunoSearch" placeholder="Buscar aluno..." />
+            <select class="form-select" v-model="usuario.alunoId" id="aluno-select" required>
+              <option v-for="aluno in filteredAlunos" :key="aluno.id" :value="aluno.id">
+                {{ aluno.nome }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="instrutor-select" class="form-label">Selecione um Instrutor</label>
+            <input type="text" class="form-control mb-2" v-model="instrutorSearch" placeholder="Buscar instrutor..." />
+            <select class="form-select" v-model="usuario.instrutorId" id="instrutor-select" required>
+              <option v-for="instrutor in filteredInstrutores" :key="instrutor.id" :value="instrutor.id">
+                {{ instrutor.username }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="data" class="form-label">Data</label>
+            <input type="date" class="form-control" id="data" v-model="data" required />
+          </div>
+          <div class="mb-3">
+            <label for="hora" class="form-label">Hora</label>
+            <select class="form-select" id="hora" v-model="hora" required>
+              <option v-for="h in horas" :key="h" :value="h">{{ h }}:00</option>
+            </select>
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit">Criar</button>
+            <router-link class="btn btn-outline-secondary" :to="{ name: 'list' }">Voltar para a lista</router-link>
+          </div>
+        </form>
       </div>
-
-      <div class="form-group">
-        <label for="data">Data:</label>
-        <input type="date" class="form-control" id="data" v-model="data" required />
-      </div>
-      <div class="form-group">
-        <label for="hora">Hora:</label>
-        <select class="form-control" id="hora" v-model="hora" required>
-          <option v-for="h in horas" :key="h" :value="h">{{ h }}:00</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <button class="btn btn-primary">Create</button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
