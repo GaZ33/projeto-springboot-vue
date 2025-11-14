@@ -11,6 +11,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
     "vue": "^2.5.2",
     "vue-resource": "^1.5.3",
     "vue-router": "^3.0.1"

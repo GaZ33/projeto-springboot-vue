@@ -2,8 +2,13 @@
   <div id="list-produtos">
     <h1>List Produtos</h1>
     <p>
-      <router-link :to="{ name: 'agendamentos' }" class="btn btn-primary">
-        Ver agendamentos
+      <router-link :to="{ name: 'AgendamentosInstrutor' }" class="btn btn-primary">
+        Ver agendamentos Instrutor
+      </router-link>
+    </p>
+    <p>
+      <router-link :to="{ name: 'AgendamentosAlunos' }" class="btn btn-primary">
+        Ver agendamentos Alunos
       </router-link>
     </p>
     <p>

@@ -7,10 +7,11 @@ import Update from '../components/Update.vue'
 import List from '../components/List.vue'
 import Delete from '../components/Delete.vue'
 import Login from '../components/login.vue'
-import Agendamentos from '../components/Agendamentos.vue'
+import AgendamentosInstrutor from '../components/AgendamentosInstrutor.vue'
 import CriarUsuario from '../components/CriarUsuario.vue'
 import CriarAgendamentos from '../components/CriarAgendamentos.vue'
 import CriarAlunos from '../components/CriarAlunos.vue'
+import AgendamentosAlunos from '../components/AgendamentosAlunos.vue'
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -44,9 +45,14 @@ export default new Router({
       component: CriarUsuario
     },
     {
-      path: '/agendamentos',
-      name: 'agendamentos',
-      component: Agendamentos
+      path: '/AgendamentosInstrutor',
+      name: 'AgendamentosInstrutor',
+      component: AgendamentosInstrutor
+    },
+    {
+      path: '/AgendamentosAlunos',
+      name: 'AgendamentosAlunos',
+      component: AgendamentosAlunos
     },
     {
       path: '/create',

@@ -1,6 +1,6 @@
 <template>
   <div id="list-aulas">
-    <h1>Agendamentos de Aulas</h1>
+    <h1>Agendamentos de Aulas Aluno</h1>
      <p>
       <router-link :to="{ name: 'list' }" class="btn btn-primary">
         Voltar
@@ -64,7 +64,7 @@ export default {
   methods: {
     fetchprodutoData: function () {
       const token = localStorage.getItem('token')
-      this.$http.get('http://localhost:8080/api/agendamentos/instrutor/meus', {
+      this.$http.get('http://localhost:8080/api/agendamentos/aluno/meus', {
         headers: {
           'Authorization': 'Bearer ' + token
         }
